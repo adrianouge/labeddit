@@ -1,4 +1,7 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import axios from 'axios'
+
 import {
     Body,
     Header, LabedditIcon, NavigateToPage,
@@ -6,10 +9,15 @@ import {
     SignupForm, Input, Disclaimer, Label, Button,
     BottomBar
 } from "../components/styled-components"
-import { useNavigate } from "react-router-dom"
+
 import labedditLogo from "../images/labeddit-logo.png"
+import { LabedditContext } from "../contexts/LabedditContext"
 
 export const Signup = () => {
+
+    const context = useContext(LabedditContext)
+
+    const { userToken, setUserToken, postList, setPostList } = context
 
     const navigate = useNavigate()
 
@@ -17,9 +25,11 @@ export const Signup = () => {
     const [nickname, setNickname] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [welcome, setWelcome] = useState("Olá, boas vindas ao LabEddit ;)")
 
     const onChangeAgree = (e) => {
         setAgree(!agree)
+        console.log(userToken)
     }
     const onChangeNickname = (e) => {
         setNickname(e.target.value)
@@ -31,15 +41,37 @@ export const Signup = () => {
         setPassword(e.target.value)
     }
 
-    const welcome = "Olá, boas vindas ao LabEddit ;)"
 
-    const newUser = { nickname, email, password }
+    useEffect(() => { }, [userToken])
+    const registerNewUser = async (event) => {
 
-    const registerNewUser = async (e) => {
-
+        try {
+            event.preventDefault()
+            const body = { name: nickname, email, password }
+            const response = await axios.post('https://labeddit-back-end-adriano-uge.onrender.com/users', body)
+            if (response.data.userToken) {
+                setUserToken(response.data.userToken)
+                console.log(userToken)
+                setWelcome(response.data.message)
+            }
+            console.log(response, userToken)
+            return response
+        }
+        catch (error) { console.log(error) }
     }
 
+
+    const checkUserToken = (userToken) => {
+        console.log(userToken)
+        if (userToken !== 'nenhum') {
+            navigate('/create-post')
+        }
+    }
+
+    useEffect(() => { checkUserToken(userToken) }, [userToken])
+    
     return (
+
         <Body>
 
 
@@ -71,7 +103,7 @@ export const Signup = () => {
                 />
 
                 <Input
-                    type="text" placeholder="Senha" name="senha"
+                    type="password" placeholder="Senha" name="senha"
                     value={password} onChange={onChangePassword}
                 />
 
@@ -91,7 +123,9 @@ export const Signup = () => {
 
                 <Button
                     type="submit" value="Cadastrar"
-                    onSubmit={registerNewUser} />
+                    onClick={registerNewUser}>
+                    Cadastrar
+                </Button>
 
             </SignupForm>
 

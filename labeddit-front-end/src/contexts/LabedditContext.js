@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const LabedditContext = createContext();
+export const LabedditContext = createContext()

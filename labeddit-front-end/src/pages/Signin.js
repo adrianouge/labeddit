@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Body,
@@ -10,25 +10,50 @@ import {
     BottomBar
 } from "../components/styled-components"
 import labedditLogo from "../images/labeddit-logo.png"
+import axios from 'axios'
+import { LabedditContext } from '../contexts/LabedditContext';
+
 
 export const Signin = () => {
+
+    const context = useContext(LabedditContext)
+
     const navigate = useNavigate()
 
-    const [userEmail, setUserEmail] = useState("")
-    const [userPassword, setUserPassword] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const { userToken, setUserToken,
+        postList, setPostlist } = context
 
     const onChangeEmail = (e) => {
-        setUserEmail(e.target.value)
+        setEmail(e.target.value)
     }
     const onChangePassword = (e) => {
-        setUserPassword(e.target.value)
+        setPassword(e.target.value)
     }
 
-    const userInfo = {email: userEmail, password: userPassword}
-    const loginUser = async(userInfo) => {
 
+    const loginUser = async (event) => {
+
+        event.preventDefault()
+        const body = { email, password }
+        const response = await axios.post('https://labeddit-back-end-adriano-uge.onrender.com/users/login', body)
+        console.log(response.data.userToken)
+        if (response.data.userToken !== undefined) {
+            setUserToken(response.data.userToken)
+        }
+        return response
     }
 
+    const checkUserToken = (userToken) => {
+        console.log(userToken)
+        if (userToken !== 'nenhum') {
+            navigate('/create-post')
+        }
+    }
+
+    useEffect(() => { checkUserToken(userToken) }, [userToken])
     return (
 
         <Body>
@@ -44,16 +69,19 @@ export const Signin = () => {
             <SigninForm>
 
                 <Input
-                    type="text" placeholder="E-mail" value={userEmail}
-                    onChange={onChangeEmail}/>
+                    type="text" placeholder="E-mail" value={email}
+                    onChange={onChangeEmail} />
 
                 <Input
-                    type="text" placeholder="Senha" value={userPassword}
+                    type="password" placeholder="Senha" value={password}
                     onChange={onChangePassword} />
 
                 <Button
-                    type="submit" value="Continuar"
-                    onSubmit={loginUser} />
+                    type="submit"
+                    value="entrar"
+                    onClick={loginUser}>
+                    Entrar
+                </Button>
 
             </SigninForm>
 
@@ -63,7 +91,7 @@ export const Signin = () => {
 
             <Button2 onClick={() => navigate("/signup")}>Crie uma conta!</Button2>
 
-            
+
             <BottomBar />
         </Body>
     )

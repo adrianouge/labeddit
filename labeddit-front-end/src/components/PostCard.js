@@ -1,44 +1,55 @@
-import { RenderedPost,
+import {
+    RenderedPost,
     LikeOrDislikeSection, LikeIcon, DislikeIcon,
-    CommentsIcon, 
+    CommentsIcon,
     Comments,
-    LikeDislikeCommentsSection} from "./styled-components"
+    LikeDislikeCommentsSection
+} from "./styled-components"
 import likeIcon from "../images/upvote-icon.png"
 import dislikeIcon from "../images/downvote-icon.png"
 import commentsIcon from "../images/comments-icon.png"
 import { useNavigate } from "react-router-dom"
 
 
-export const PostCard = (post) => {
+export const PostCard = (props) => {
 
+
+    const { post, likePost, dislikePost, goToClickedPost, key } = props
+    
     const navigate = useNavigate()
 
-    return(
+
+    return (
 
 
-        <RenderedPost>
+        <RenderedPost key={key}>
+            Enviado por: {post.creator_id}
 
-            <p>Enviado por: {post.userNickname}</p>
-
-            <h2 onClick={() => navigate(`../post/${post.id}`)}>{post.content}</h2>
+            <h3 onClick={goToClickedPost}>{post.content}</h3>
 
 
             <LikeDislikeCommentsSection>
 
-            <LikeOrDislikeSection>
-                <LikeIcon src={likeIcon} alt="like"/>
-                {post.likes}
-                <DislikeIcon src={dislikeIcon} alt="dislike"/>
-            </LikeOrDislikeSection>
+                <LikeOrDislikeSection>
 
-            <Comments>
-                <CommentsIcon src={commentsIcon} alt="comments"/>
-                {post.comments}
-            </Comments>
+                    <LikeIcon id={post.post_id} src={likeIcon} alt="like" onClick={likePost} />
+
+                    {post.likes}
+
+                    <DislikeIcon id={post.post_id} src={dislikeIcon} alt="dislike" onClick={dislikePost} />
+
+                </LikeOrDislikeSection>
+
+
+                <Comments>
+                    <CommentsIcon src={commentsIcon} alt="comments" />
+                    {post.comments}
+                </Comments>
+
 
             </LikeDislikeCommentsSection>
 
-            
+
         </RenderedPost>
     )
 }

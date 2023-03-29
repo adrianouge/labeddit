@@ -68,7 +68,7 @@ margin-left: 32px;`
 export const Label = styled.label`
 width: 364px;`
 
-export const Button = styled.input`
+export const Button = styled.button`
 height: 54px;
 width: 365px;
 border-radius: 27px;
@@ -131,14 +131,18 @@ gap: 8px;
 `
 
 export const RenderedPost = styled.div`
-width: 364px;
-padding: 8px;
+width: 324px;
+padding: 24px;
 gap: 16px;
-border: 2px;
+border-width: 4px;
 border-radius: 12px;
-background: #FBFBFB;
+border-color: grey;
+background: #EDEDED;
 margin-bottom: 32px;
+align-items: center;
+justify-content: center;
 `
+
 export const LikeDislikeCommentsSection = styled.div`
 display: flex;
 flex-direction: row;
@@ -169,3 +173,21 @@ justify-content: space-around;
 export const CommentsIcon = styled.img`
 margin: 0 16px 0 32px;
 align-self: center;`
+
+export const RenderedComment = styled.div`
+width: 324px;
+padding: 24px;
+gap: 16px;
+border-width: 4px;
+border-radius: 12px;
+border-color: grey;
+background: #EDEDED;
+margin-bottom: 32px;
+align-items: center;
+justify-content: center;
+`
+
+export const LikeDislikeSection = styled.div`
+display: flex;
+flex-direction: row;
+margin-top: 32px;`
