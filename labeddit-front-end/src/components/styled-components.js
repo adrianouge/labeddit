@@ -26,7 +26,9 @@ height: 24px;`
 export const NavigateToPage = styled.a`
 margin-left: 116px;
 align-self: center;
-text-size: 18px`
+text-size: 18px;
+color: #4088CB;
+font-weight: 600;`
 
 export const Title = styled.p`
 display: flex;
@@ -46,7 +48,8 @@ display: flex;
 flex-direction: column;
 align-items: center;
 margin-top: 194px;
-gap: 8px`
+gap: 8px;
+font-family: 'Noto Sans;`
 
 export const SigninForm = styled.form`
 width: 364px;
@@ -54,7 +57,8 @@ display: flex;
 flex-direction: column;
 align-items: center;
 margin-top: 106px;
-gap: 8px`
+gap: 8px;
+font-family: 'Noto Sans;`
 
 export const Input = styled.input`
 height: 52px;
@@ -63,7 +67,8 @@ display: flex;
 padding: 8px`
 
 export const Disclaimer = styled.p`
-margin-left: 32px;`
+margin-left: 32px;
+font-family: 'Noto Sans;`
 
 export const Label = styled.label`
 width: 364px;`
@@ -134,19 +139,29 @@ export const RenderedPost = styled.div`
 width: 324px;
 padding: 24px;
 gap: 16px;
-border-width: 4px;
+background: #FBFBFB;
+border: 1px solid #E0E0E0;
 border-radius: 12px;
-border-color: grey;
-background: #EDEDED;
 margin-bottom: 32px;
 align-items: center;
 justify-content: center;
 `
 
+export const SentBy = styled.h4`
+font-family: 'IBM Plex Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+
+color: #6F6F6F;`
+
 export const LikeDislikeCommentsSection = styled.div`
 display: flex;
 flex-direction: row;
-margin-top: 32px;`
+margin-top: 32px;
+color: #6F6F6F;
+font-size: 12px;`
 
 export const LikeOrDislikeSection = styled.section`
 align-self: center;
@@ -178,9 +193,9 @@ export const RenderedComment = styled.div`
 width: 324px;
 padding: 24px;
 gap: 16px;
-border-width: 4px;
+background: #FBFBFB;
+border: 1px solid #E0E0E0;
 border-radius: 12px;
-border-color: grey;
 background: #EDEDED;
 margin-bottom: 32px;
 align-items: center;

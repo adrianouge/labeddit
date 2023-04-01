@@ -180,6 +180,7 @@ export const Post = () => {
             { headers: { Authorization: userToken } })
         setNewComment("")
         getComments()
+        findPost()
         console.log(response)
         return response
     }

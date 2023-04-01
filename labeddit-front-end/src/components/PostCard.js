@@ -3,7 +3,8 @@ import {
     LikeOrDislikeSection, LikeIcon, DislikeIcon,
     CommentsIcon,
     Comments,
-    LikeDislikeCommentsSection
+    LikeDislikeCommentsSection,
+    SentBy
 } from "./styled-components"
 import likeIcon from "../images/upvote-icon.png"
 import dislikeIcon from "../images/downvote-icon.png"
@@ -23,7 +24,7 @@ export const PostCard = (props) => {
 
 
         <RenderedPost key={key}>
-            Enviado por: {post.creator_id}
+            <SentBy>Enviado por: {post.creator_id}</SentBy>
 
             <h3 onClick={goToClickedPost}>{post.content}</h3>
 
